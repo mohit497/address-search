@@ -1,0 +1,47 @@
+.marker{
+  font-size:1em;
+  // font-weight: bold;
+  background-color: white;
+  color:black;
+  width: 150px;
+}
+
+.address{
+  opacity: 0.7;
+  transition: all .5s;
+  font-size: .7em;
+  &:hover{
+    opacity: 1;
+    box-shadow: 4px grey;
+    cursor: pointer;
+    .fav-icon{
+      color: black;
+    }
+  }
+}
+
+.address.selected{
+  background-color: lightblue;
+}
+
+.address.card{
+  width: 100%;
+}
+
+.fav-icon{
+  font-size: large;
+  position: absolute;
+  right:1.2em;
+  top:1.2em;
+  color: white;
+}
+.fav-icon.is-fav{
+  color: black;
+  :hover{
+    color:black;
+  }
+}
+
+.notification{
+  transition: all .5s;
+}
