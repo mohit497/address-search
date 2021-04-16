@@ -19,8 +19,9 @@ export function SearchExample() {
             value={state.searchString}
             onChange={onSearchAddress}
             size="lg"
-            type="email"
+            type="text"
             placeholder="Enter Address"
+            autoComplete="false"
           />
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>

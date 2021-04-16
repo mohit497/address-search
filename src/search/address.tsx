@@ -2,16 +2,52 @@ import { useReactiveVar } from "@apollo/client";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { Address } from "../state/address";
 import { appState } from "../state/state";
+import { calculateDistance } from "./effects/calculate-distance";
+import { cords } from "./map";
 
 export function AddressComponent(props: Address) {
   const state = useReactiveVar(appState);
+  const [distance, setdistance] = useState<any>(null);
+
+
+
+  const getDistance =()=>{
+    calculateDistance(
+      {
+        id: "melbourne",
+        name: "melbourne",
+        location: cords.center,
+        isFav: false,
+      },
+      state.results[0]
+    ).then((res) => {
+      setdistance(res.data.rows[0]?.elements[0]?.distance?.text)
+      appState({
+        ...appState(),
+        selectedAddress: { ...props, distFromMelbourne: res.data.rows[0]?.elements[0]?.distance?.text },
+      });
+    })
+
+  }
+
   const handleClick = () => {
-    appState({ ...appState(), selectedAddress: props });
+    getDistance();
   };
+
+  // aut select on single result and calculate distance
+  useEffect(() => {
+    if (
+      state?.results[0]?.id === props.id ||
+      props.id === state?.selectedAddress?.id
+    ) {
+      getDistance()
+    }
+  },[state.results]);
+
 
   const handleFav = () => {
     if (props.isFav) {
@@ -71,6 +107,13 @@ export function AddressComponent(props: Address) {
                 <b>Lng :</b>
                 {props?.location.lat}
               </span>
+            </Row>
+            <Row className="text-cener">
+              <Col>
+                {state?.selectedAddress?.id === props.id && !!distance
+                  ? `${distance} from Melbourne`
+                  : ""}
+              </Col>
             </Row>
           </Card.Body>
         </Card>

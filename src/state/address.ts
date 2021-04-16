@@ -8,4 +8,5 @@ export interface Address {
   location: Location;
   name: string;
   isFav: boolean;
+  distFromMelbourne?: string;
 }
