@@ -1,0 +1,13 @@
+# Getting Started
+
+1. Make sure you add a google api key in ./src/config.ts
+2. add chrome extension to enable cors as google apis privacy issue 
+3. https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en
+
+## run npm install
+
+## run npm start
+
+
+### You can view the live project here at after following step 2
+https://qw0xe.csb.app/
